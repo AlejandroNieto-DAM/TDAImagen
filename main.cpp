@@ -4,7 +4,7 @@ using namespace std;
 
 int main() {
 
-//Se vienen cositas
+  //Se vienen cositas ojo
   Image imagen;
   imagen.printf();
 
