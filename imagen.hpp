@@ -34,6 +34,8 @@ class Image {
         inline byte getValuePixel(int row, int col) const { return this->image[row][col]; }
         void printf();
 
+
+
 };
 
 #endif /* imagen_hpp */
