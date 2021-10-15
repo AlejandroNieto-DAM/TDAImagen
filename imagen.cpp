@@ -19,6 +19,12 @@ Image::Image(){
     this->image[i] = new byte[this->getCols()];
   }
 
+  for(int i = 0; i < this->rows; i++){ //Añadi esto para poder hmmm, empezar con una imagen al principio, no solo ponerlo al final en printf
+    for(int j = 0; j < this->cols; j++){
+      this->image[i][j] = '0';
+    }
+  }
+
 }
 
 Image::Image(const Image & J){
@@ -47,6 +53,11 @@ Image::Image(int rows, int cols){
     this->image[i] = new byte[this->getCols()];
   }
 
+  for(int i = 0; i < this->rows; i++){
+    for(int j = 0; j < this->cols; j++){
+      this->image[i][j] = '0';
+    }
+  }
 }
 
 Image::~Image(){
@@ -59,13 +70,13 @@ Image::~Image(){
 
 
 void Image::printf(){
-
+/*   Innecesario, que cambia cualquier valor. Lo dejo para mostrar los cambios.
   for(int i = 0; i < this->rows; i++){
     for(int j = 0; j < this->cols; j++){
       this->image[i][j] = '1';
     }
   }
-
+*/
   for(int i = 0; i < this->rows; i++){
     for(int j = 0; j < this->cols; j++){
       cout << this->image[i][j];
