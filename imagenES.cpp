@@ -87,32 +87,33 @@ void zoomImage(const char *nameFichOrig, const char *nameFichOut, const int x1, 
   int rows = abs(x2 - x1);
   int cols = abs(y2 - y1);
 
-  cout << "stop1" << endl;
-
   subImage(nameFichOrig, nameFichOut, x1, y1, rows, cols);
 
-  cout << "stop2" << endl;
   //Ya tenemos la imagen recortada a la que queremos hacerle zoom;
   Image image(readImage(nameFichOut));
-  cout << "stop3" << endl;
   //Falta construir la matriz (2N - 1) * (2N - 1) y hacer la media de los valores entre una y otra columnas. Lo mismo para las filas.
   unsigned char matrix[2*rows-1][2*cols-1];
-  for (int i = 0; i < rows; i++)
-    for (int j = 0; j < cols; j++)
-      matrix[i*2-1][j*2-1] = image.getValuePixel(i,j);
-
-  for (int i = 0; i < rows; i++)
-    for (int j = 0; j < cols - 1; j++)
-      matrix[i*2-1][j*2] = (matrix[i*2-1][j*2-1]+matrix[i*2-1][j*2+1])/2;
-
-  for (int i = 0; i < rows - 1; i++)
-    for (int j = 0; j < 2 * cols - 1; j++)
-      matrix[i*2][j] = (matrix[i*2-1][j]+matrix[i*2+1][j])/2;
+  unsigned char buffer;
+  for (int i = 0; i < rows; i++){
+    buffer = image.getValuePixel(i,0);
+    cout << buffer << endl;
+    for (int j = 0; j < 2*cols-1; j++){
+      if (j%2 == 0)
+        matrix[i*2][j] = buffer;
+      else{
+        buffer = image.getValuePixel(i,(j+1)/2);
+        matrix[i*2][j] = ( matrix[i*2][j-1]+buffer ) / 2;
+      }
+    }
+  }
 
   unsigned char *imageOutput = new unsigned char[(2*rows-1) * (2*cols-1)];
   int util = 0;
   for (int i = 0; i < 2*rows-1; i++)
     for (int j = 0; j < 2*cols - 1; j++){
+      if (i % 2 == 1){
+        matrix[i][j] = (matrix[i-1][j]+matrix[i+1][j])/2;
+      }
       imageOutput[util] = matrix[i][j];
       util++;
     }

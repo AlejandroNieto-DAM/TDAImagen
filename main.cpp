@@ -26,5 +26,5 @@ int main() {
 
   subImage("imagenespgmppm/vacas.pgm", "cabeza.pgm", 85, 145, 60, 80);
   //contraste("imagenespgmppm/vacas.pgm", "espectaculo.pgm", 0, 255, 255, 0);
-  zoomImage("imagenespgmppm/vacas.pgm", "HM.pgm", 85, 145, 60, 80);
+  zoomImage("imagenespgmppm/vacas.pgm", "cabezaZ.pgm", 85, 145, 40, 80);
 }
