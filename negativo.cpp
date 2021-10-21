@@ -13,12 +13,12 @@
 #include <cstring>
 #include <cstdlib>
 
-#include <imagenES.h>
+#include "imagenES.h"
 
 using namespace std;
 
 int main (int argc, char *argv[]){
- 
+
   char *origen, *destino; // nombres de los ficheros
 
   unsigned char *image;
@@ -49,7 +49,7 @@ int main (int argc, char *argv[]){
   // Mostrar los parametros calculados por LeerImagenPGM()
   cout << endl;
   cout << "Dimensiones de " << origen << ":" << endl;
-  
+
   cout << "   Imagen   = " << nf  << " filas x " << nc << " columnas " << endl;
 
   // Calcular el negativo

@@ -93,11 +93,11 @@ bool EscribirImagenPGM (const char *nombre, const unsigned char *datos,
 
 void subImage(const char *nameFichOrig, const char *nameFichOut, const int fil, const int cols, const int rowsToSubstract, const int colsToSubstract);
 
-
 Image readImage(const char *nameFichOrig);
 
 void contraste(const char *nameFichOrig, const char *nameFichOut, double a, double b, double newMax, double newMin);
 
+void zoomImage(const char *nameFichOrig, const char *nameFichOut, const int x1, const int y1, const int x2, const int y2);
 
 
 #endif
