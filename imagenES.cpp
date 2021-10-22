@@ -78,10 +78,26 @@ void subImage(const char *nameFichOrig, const char *nameFichOut, const int fil, 
 
   EscribirImagenPGM(nameFichOut, imageOutput, rowsToSubstract, colsToSubstract);
 
+
   delete [] imageOutput;
 
 }
 
+void saveImage(const char* nameFichOut, Image image, int rows, int cols){
+  unsigned char *imageOutput = new unsigned char[rows * cols];
+  int util = 0;
+  for(int i = 0; i < rows; i++){
+    for(int j = 0; j < cols; j++){
+      imageOutput[util] = image.getValuePixel(i, j);
+      //imageOutput[util] = matrix[i][j];
+      util++;
+    }
+  }
+
+  EscribirImagenPGM(nameFichOut, imageOutput, rows, cols);
+
+  delete [] imageOutput;
+}
 
 void zoomImage(const char *nameFichOrig, const char *nameFichOut, const int x1, const int y1, const int x2, const int y2){
   int rows = abs(x2 - x1);
@@ -91,12 +107,49 @@ void zoomImage(const char *nameFichOrig, const char *nameFichOut, const int x1, 
 
   //Ya tenemos la imagen recortada a la que queremos hacerle zoom;
   Image image(readImage(nameFichOut));
-  //Falta construir la matriz (2N - 1) * (2N - 1) y hacer la media de los valores entre una y otra columnas. Lo mismo para las filas.
-  unsigned char matrix[2*rows-1][2*cols-1];
-  unsigned char buffer;
+
+  //Creamos la imagen de salida (2*N - 1) * (2*N -1)
+  Image imOut(2*rows-1, 2*cols-1);
+
+  int row_util = 0;
+  int col_util = 0;
+  /*
+  Copiamos la informacion de la imagen original en los lugares que corresponden
+  ya que si metemos entre las columnas y filas originales ahora una más estas tendrán
+  de separación una por lo cual vemos que coinciden con las de %2 == 0 por eso iteramos de 2 en 2
+  */
+  for(int i = 0; i < 2*rows-1; i+=2){
+    for(int j = 0; j < 2*cols-1; j+=2){
+      imOut.setPixel(i, j, image.getValuePixel(row_util, col_util));
+      col_util++;
+    }
+    row_util++;
+    col_util = 0;
+  }
+
+  //Generamos la media de las columnas vacias de las filas %2 == 0
+  for(int i = 0; i < (2*rows)-1; i+=2){
+    for(int j = 1; j < (2*cols-2); j+=2){
+      imOut.setPixel(i, j, (imOut.getValuePixel(i, j - 1)+imOut.getValuePixel(i, j + 1))/2);
+    }
+  }
+
+  //En este caso ahora tenemos una fila totalmente vacia que es la que coincide con %2 != 0 por lo cualquier
+  //tendremos que iterar sobre toda la fila poniendo el nuevo valor que es la media del valor de arriba y abajo
+  for(int i = 1; i < (2*rows)-2; i+=2){
+    for(int j = 0; j < (2*cols-1); j+=1){
+      imOut.setPixel(i, j, (imOut.getValuePixel(i - 1, j)+imOut.getValuePixel(i + 1, j))/2);
+    }
+  }
+
+  saveImage(nameFichOut, imOut, 2*rows-1, 2*cols-1);
+
+  /*unsigned char buffer;
+
+
   for (int i = 0; i < rows; i++){
     buffer = image.getValuePixel(i,0);
-    cout << buffer << endl;
+    //cout << buffer << endl;
     for (int j = 0; j < 2*cols-1; j++){
       if (j%2 == 0)
         matrix[i*2][j] = buffer;
@@ -109,7 +162,7 @@ void zoomImage(const char *nameFichOrig, const char *nameFichOut, const int x1, 
 
   unsigned char *imageOutput = new unsigned char[(2*rows-1) * (2*cols-1)];
   int util = 0;
-  for (int i = 0; i < 2*rows-1; i++)
+  for (int i = 0; i < 2*rows-1; i++){
     for (int j = 0; j < 2*cols - 1; j++){
       if (i % 2 == 1){
         matrix[i][j] = (matrix[i-1][j]+matrix[i+1][j])/2;
@@ -117,8 +170,11 @@ void zoomImage(const char *nameFichOrig, const char *nameFichOut, const int x1, 
       imageOutput[util] = matrix[i][j];
       util++;
     }
-  EscribirImagenPGM(nameFichOut, imageOutput, 2*rows-1, 2*cols-1);
-  delete [] imageOutput;
+  }*/
+
+  //EscribirImagenPGM(nameFichOut, imageOutput, 2*rows-1, 2*cols-1);
+
+
 }
 
 

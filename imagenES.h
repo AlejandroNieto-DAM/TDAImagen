@@ -99,6 +99,8 @@ void contraste(const char *nameFichOrig, const char *nameFichOut, double a, doub
 
 void zoomImage(const char *nameFichOrig, const char *nameFichOut, const int x1, const int y1, const int x2, const int y2);
 
+void saveImage(const char* nameFichOut, Image image, int rows, int cols);
+
 
 #endif
 
