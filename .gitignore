@@ -6,3 +6,5 @@ racional-mas-vd
 imagenespgmppm/
 *.pgm
 .vscode
+*.gif
+core
