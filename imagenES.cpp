@@ -297,5 +297,36 @@ void saveImage(const char* nameFichOut, Image image, int rows, int cols){
   delete [] imageOutput;
 }
 
+//_____________________________________________________________________________
+
+void morphingDese(const char *nameFichStart, const char *nameFichEnd, int numTransitions){
+  Image imv[(numTransitions + 1)];
+  imv[0] = readImage(nameFichStart);
+  imv[numTransitions] = readImage(nameFichEnd);
+  double transValue[imv[0].getRows()][imv[0].getCols()];
+  for(int i = 0; i < imv[0].getRows(); i++){
+    for(int j = 0; j < imv[0].getCols(); j++){
+      double a = imv[numTransitions].getValuePixel(i,j);
+      double b = imv[0].getValuePixel(i,j);
+      transValue[i][j] = (a - b) / (double) numTransitions;
+    }
+  }
+
+  saveImage("0_frame.pgm", imv[0], imv[0].getRows(), imv[0].getCols());
+  string numerator = numTransitions + "_frame.pgm";
+  saveImage(numerator.c_str(), imv[numTransitions], imv[0].getRows(), imv[0].getCols());
+  for (int x = 1; x < numTransitions; x++){
+    for(int i = 0; i < imv[0].getRows(); i++){
+      for(int j = 0; j < imv[0].getCols(); j++){
+          imv[x].setPixel(i, j, imv[x-1].getValuePixel(i,j) + transValue[i][j]);
+      }
+    }
+    numerator = x + "_frame.pgm";
+    saveImage(numerator.c_str(), imv[x], imv[0].getRows(), imv[0].getCols());
+  }
+
+
+}
+
 
 /* Fin Fichero: imagenES.cpp */

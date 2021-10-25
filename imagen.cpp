@@ -2,7 +2,7 @@
 //  imagen.cpp
 //
 //
-//  Created by Alejandro Nieto Alarcon on 8/10/21.
+//  Created by Alejandro Nieto Alarcon and Joel Slot 8/10/21.
 //
 
 #include "imagen.hpp"

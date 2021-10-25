@@ -112,7 +112,7 @@ Image readImage(const char *nameFichOrig);
  * @return true if the point (x, y) its correct
  * @return false if the point (x, y) its not correct
  */
-bool coordinatesCheck(int x, int y, int rows, int cols){
+bool coordinatesCheck(int x, int y, int rows, int cols);
 
 /**
  * @brief Recorta una imagen dado el punto superior izquierdo desde el que queremos partir
@@ -171,7 +171,7 @@ void contraste(const char *nameFichOrig, const char *nameFichOut, double a, doub
  */
 void saveImage(const char* nameFichOut, Image image, int rows, int cols);
 
-
+void morphingDese(const char *nameFichStart, const char *nameFichEnd, int numTransitions);
 
 
 #endif
