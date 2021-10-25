@@ -67,3 +67,22 @@ Image::~Image(){
 
   delete [] this->image;
 }
+
+Image& Image::operator= (const Image& J){
+  delete[] this->image;
+
+  this->cols = J.getCols();
+  this->rows = J.getRows();
+
+  this->image = new byte * [this->getRows()];
+  for(int i = 0; i < this->getRows(); i++){
+    this->image[i] = new byte[this->getCols()];
+  }
+
+  for(int i = 0; i < this->getRows(); i++){
+    for(int j = 0; j < this->getCols(); j++){
+      this->setPixel(i, j, J.getValuePixel(i, j));
+    }
+  }
+  return *this;
+}

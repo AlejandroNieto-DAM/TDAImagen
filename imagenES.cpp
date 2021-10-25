@@ -300,9 +300,16 @@ void saveImage(const char* nameFichOut, Image image, int rows, int cols){
 //_____________________________________________________________________________
 
 void morphingDese(const char *nameFichStart, const char *nameFichEnd, int numTransitions){
+
   Image imv[(numTransitions + 1)];
   imv[0] = readImage(nameFichStart);
   imv[numTransitions] = readImage(nameFichEnd);
+
+  if (imv[0].getCols() != imv[numTransitions].getCols() || imv[0].getRows() != imv[numTransitions].getRows()){
+    cout << "ERROR: tamaño de imagenes distintas" << endl;
+    return;
+  }
+
   double transValue[imv[0].getRows()][imv[0].getCols()];
   for(int i = 0; i < imv[0].getRows(); i++){
     for(int j = 0; j < imv[0].getCols(); j++){
@@ -312,19 +319,23 @@ void morphingDese(const char *nameFichStart, const char *nameFichEnd, int numTra
     }
   }
 
+  cout << imv[0].getCols() << endl;
+
   saveImage("0_frame.pgm", imv[0], imv[0].getRows(), imv[0].getCols());
-  string numerator = numTransitions + "_frame.pgm";
+  string numerator = to_string(numTransitions) + "_frame.pgm";
   saveImage(numerator.c_str(), imv[numTransitions], imv[0].getRows(), imv[0].getCols());
+
   for (int x = 1; x < numTransitions; x++){
+    imv[x] = imv[0];
     for(int i = 0; i < imv[0].getRows(); i++){
       for(int j = 0; j < imv[0].getCols(); j++){
-          imv[x].setPixel(i, j, imv[x-1].getValuePixel(i,j) + transValue[i][j]);
+          imv[x].setPixel(i, j, (imv[0].getValuePixel(i,j) + transValue[i][j]*x));
       }
     }
-    numerator = x + "_frame.pgm";
+    cout << numerator << endl;
+    numerator = to_string(x) + "_frame.pgm";
     saveImage(numerator.c_str(), imv[x], imv[0].getRows(), imv[0].getCols());
   }
-
 
 }
 

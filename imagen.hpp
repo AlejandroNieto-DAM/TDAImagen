@@ -83,6 +83,8 @@ class Image {
          */
         inline byte getValuePixel(int row, int col) const { return this->image[row][col]; }
 
+        Image& operator= (const Image &im);
+
 };
 
 #endif /* imagen_hpp */
