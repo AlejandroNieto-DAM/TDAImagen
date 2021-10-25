@@ -103,8 +103,8 @@ Image readImage(const char *nameFichOrig);
 /**
  * @brief Is a function to make sure the x and y value are under the value of rows
  * and cols pertinent and are not negatives because its imposible to get a sub image
- * starting in (-1, -100) or exceding the number of rows and cols
- * 
+ * that starts in (-1, -100) or exceeds the number of rows and cols
+ *
  * @param x Value we want to compare
  * @param y Value we want to compare
  * @param rows number of rows of an image
