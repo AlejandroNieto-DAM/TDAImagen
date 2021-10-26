@@ -294,6 +294,8 @@ void saveImage(const char* nameFichOut, Image image, int rows, int cols){
 
   EscribirImagenPGM(nameFichOut, imageOutput, rows, cols);
 
+  cout << "*********** La acción se ha realizado correctamente!! **********" << endl;
+
   delete [] imageOutput;
 }
 
