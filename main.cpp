@@ -75,7 +75,7 @@ void menu() {
         cout << "Introduce el nombre del directorio de la primera imagen: ";
         cin >> nombreFicheroEntrada;
         cout << "Introduce el nombre del directorio de la segunda imagen: ";
-        cin >> nombreFicheroEntrada2;
+        cin >> nombreFicheroSalida;
         cout << "Introduce el numero de transiciones: ";
         cin >> x;
 

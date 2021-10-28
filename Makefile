@@ -1,13 +1,13 @@
 all: tdaImagen
 
-tdaImagen: main.o imagenEs.o imagen.o
-	g++ -o tdaimagen main.o imagenEs.o imagen.o
+tdaImagen: main.o imagenES.o imagen.o
+	g++ -o tdaimagen main.o imagenES.o imagen.o
 
 main.o: main.cpp
 	g++ -c main.cpp
 
-imagenEs.o: imagenEs.cpp
-	g++ -c imagenEs.cpp
+imagenEs.o: imagenES.cpp
+	g++ -c imagenES.cpp
 
 imagen.o: imagen.cpp
 	g++ -c imagen.cpp
@@ -17,3 +17,6 @@ clean:
 
 perm:
 	chmod 777 tdaimagen
+
+gif:
+	convert -delay 2 -loop 0 *_frame.pgm merge.gif

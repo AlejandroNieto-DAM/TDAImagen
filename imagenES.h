@@ -171,6 +171,18 @@ void contraste(const char *nameFichOrig, const char *nameFichOut, double a, doub
  */
 void saveImage(const char* nameFichOut, Image image, int rows, int cols);
 
+/**
+*@brief Recibe los nombres de dos ficheros y un numero de transiciones.
+*
+*@param nameFichStart nombre de la primera imagen desde la que hacer el morphing
+*@param nameFichEnd nombre de la segunda imagen hasta la que hacer el morphing
+*@param numTransitions número de transiciones que hacer entre la primera y ultima imagen,
+*incluye la ultima imagen.
+*@precondition ambas imagenes deben de ser de igual tamaño. numTransitions no puede ser mayor a 256.
+*@postcondition en la carpeta donde se encuentra el programa, se habran creado un numero de ficheros igual a
+*numTransitions + 1. Estan ordenados por su nombre: de 000_frame.pgm a (numTransitions+1)_frame.pgm
+*/
+
 void morphingDese(const char *nameFichStart, const char *nameFichEnd, int numTransitions);
 
 

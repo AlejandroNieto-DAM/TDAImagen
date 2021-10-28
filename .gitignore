@@ -8,3 +8,6 @@ imagenespgmppm/
 .vscode
 *.gif
 core
+latex
+html
+*.o
