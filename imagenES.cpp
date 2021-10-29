@@ -301,7 +301,12 @@ void saveImage(const char* nameFichOut, Image image, int rows, int cols){
 
 //_____________________________________________________________________________
 
-void morphingDese(const char *nameFichStart, const char *nameFichEnd, int numTransitions){
+void morphing(const char *nameFichStart, const char *nameFichEnd, int numTransitions){
+    
+    if (numTransitions > 256 || numTransitions < 0){
+        cout << "Ha introducido un valor para las transiciones erróneo. El valor debe ser entre 0-256" << endl;
+        return;
+    }
 
   Image imv[(numTransitions + 1)];
   imv[0] = readImage(nameFichStart);
@@ -321,10 +326,10 @@ void morphingDese(const char *nameFichStart, const char *nameFichEnd, int numTra
     }
   }
 
-  cout << imv[0].getCols() << endl;
+  //cout << imv[0].getCols() << endl;
 
-  saveImage("000_frame.pgm", imv[0], imv[0].getRows(), imv[0].getCols());
-  string numerator = "";
+  saveImage("gif_images/000_frame.pgm", imv[0], imv[0].getRows(), imv[0].getCols());
+  string numerator = "gif_images/";
   for (int i = 0; i < 3 - to_string(numTransitions).length(); i++){
     numerator += "0";
   }
@@ -338,7 +343,7 @@ void morphingDese(const char *nameFichStart, const char *nameFichEnd, int numTra
           imv[x].setPixel(i, j, (imv[0].getValuePixel(i,j) + transValue[i][j]*x));
       }
     }
-    numerator = "";
+    numerator = "gif_images/";
     for (int i = 0; i < 3 - to_string(x).length(); i++){
       numerator += "0";
     }

@@ -183,7 +183,7 @@ void saveImage(const char* nameFichOut, Image image, int rows, int cols);
 *numTransitions + 1. Estan ordenados por su nombre: de 000_frame.pgm a (numTransitions+1)_frame.pgm
 */
 
-void morphingDese(const char *nameFichStart, const char *nameFichEnd, int numTransitions);
+void morphing(const char *nameFichStart, const char *nameFichEnd, int numTransitions);
 
 
 #endif

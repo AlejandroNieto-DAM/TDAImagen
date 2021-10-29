@@ -79,7 +79,7 @@ void menu() {
         cout << "Introduce el numero de transiciones: ";
         cin >> x;
 
-        morphingDese(nombreFicheroEntrada.c_str(), nombreFicheroSalida.c_str(), x);
+        morphing(nombreFicheroEntrada.c_str(), nombreFicheroSalida.c_str(), x);
         break;
 
 
